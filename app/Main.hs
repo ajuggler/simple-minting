@@ -3,8 +3,7 @@
 
 module Main where
 
-import Cardano.Api   (File (..), IsPlutusScriptLanguage, PlutusScript, TextEnvelopeDescr
-                     , writeFileTextEnvelope)
+import Cardano.Api   (File (..), IsPlutusScriptLanguage, PlutusScript, TextEnvelopeDescr, writeFileTextEnvelope)
 import Control.Monad (void)
 import Minting       (plutusFreePolicy)
 
@@ -12,9 +11,9 @@ import Minting       (plutusFreePolicy)
 freePolicyDescr :: Maybe TextEnvelopeDescr
 freePolicyDescr = Just "A free minting policy."
 
-writePlutusScriptToFile :: IsPlutusScriptLanguage lang => FilePath -> PlutusScript lang -> IO ()
-writePlutusScriptToFile filePath script = void $
-  writeFileTextEnvelope (File filePath) freePolicyDescr script
+writePlutusScriptToFile :: IsPlutusScriptLanguage lang => FilePath -> Maybe TextEnvelopeDescr -> PlutusScript lang -> IO ()
+writePlutusScriptToFile filePath descr script = void $
+  writeFileTextEnvelope (File filePath) descr script
 
 main :: IO ()
-main = writePlutusScriptToFile "../assets/freePolicy.plutus" plutusFreePolicy
+main = writePlutusScriptToFile "../assets/freePolicy.plutus" freePolicyDescr plutusFreePolicy
