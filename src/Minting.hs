@@ -17,7 +17,7 @@ import PlutusTx           (BuiltinData, CompiledCode, UnsafeFromData, compile, u
 import PlutusTx.Prelude   (BuiltinUnit, check)
 
 
-{-# Inlinable mkFreePolicy #-}
+{-# INLINABLE mkFreePolicy #-}
 mkFreePolicy :: () -> ScriptContext -> Bool
 mkFreePolicy () _ = True
 
