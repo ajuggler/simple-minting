@@ -17,7 +17,7 @@ cabal run simple-minting
 
 in=$(cardano-cli query utxo --address $(cat $keypath/jack.addr) --testnet-magic 4 --out-file  /dev/stdout | jq -r 'keys[0]')
 
-echo "Jack's address:"
+echo "Jack's wallet:"
 echo "$(cardano-cli query utxo --address $(cat $keypath/jack.addr) --testnet-magic 4)"
 echo ""
 
