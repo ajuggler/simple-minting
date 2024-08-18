@@ -1,5 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 {-# LANGUAGE TemplateHaskell #-}
@@ -14,7 +15,7 @@ import Cardano.Api        (PlutusScriptV3)
 import Cardano.Api.Script (PlutusScript (..))
 import PlutusLedgerApi.V3 (ScriptContext, SerialisedScript, serialiseCompiledCode)
 import PlutusTx           (BuiltinData, CompiledCode, UnsafeFromData, compile, unsafeFromBuiltinData)
-import PlutusTx.Prelude   (BuiltinUnit, check)
+import PlutusTx.Prelude   (Bool (..), BuiltinUnit, check, ($))
 
 
 {-# INLINABLE mkFreePolicy #-}
