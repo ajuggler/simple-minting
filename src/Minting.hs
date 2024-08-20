@@ -14,19 +14,19 @@ module Minting where
 import Cardano.Api         (PlutusScriptV3)
 import Cardano.Api.Shelley (PlutusScript (..))
 import PlutusLedgerApi.V3  (ScriptContext, SerialisedScript, serialiseCompiledCode)
-import PlutusTx            (BuiltinData, CompiledCode, UnsafeFromData, compile, unsafeFromBuiltinData)
+import PlutusTx            (BuiltinData, CompiledCode, compile, unsafeFromBuiltinData)
 import PlutusTx.Prelude    (Bool (..), BuiltinUnit, check, ($))
 
 
 {-# INLINABLE mkFreePolicy #-}
-mkFreePolicy :: () -> ScriptContext -> Bool
-mkFreePolicy () _ = True
+mkFreePolicy :: ScriptContext -> Bool
+mkFreePolicy _ = True
 
 {-# INLINABLE mkWrappedFreePolicy #-}
-mkWrappedFreePolicy :: BuiltinData -> BuiltinData -> BuiltinUnit
+mkWrappedFreePolicy :: BuiltinData -> BuiltinUnit
 mkWrappedFreePolicy = wrapPolicy mkFreePolicy
 
-compiledFreePolicy :: CompiledCode (BuiltinData -> BuiltinData -> BuiltinUnit)
+compiledFreePolicy :: CompiledCode (BuiltinData -> BuiltinUnit)
 compiledFreePolicy = $$(compile [|| mkWrappedFreePolicy ||])
 
 serializedFreePolicy :: SerialisedScript
@@ -39,11 +39,6 @@ plutusFreePolicy = PlutusScriptSerialised serializedFreePolicy
 -----------  Helper Functions  -----------
 
 {-# INLINABLE wrapPolicy #-}
-wrapPolicy :: UnsafeFromData a
-           => (a -> ScriptContext -> Bool)
-           -> (BuiltinData -> BuiltinData -> BuiltinUnit)
-wrapPolicy f a ctx =
-  check $ f
-      (unsafeFromBuiltinData a)
-      (unsafeFromBuiltinData ctx)
+wrapPolicy :: (ScriptContext -> Bool) -> (BuiltinData -> BuiltinUnit)
+wrapPolicy f ctx = check $ f (unsafeFromBuiltinData ctx)
 

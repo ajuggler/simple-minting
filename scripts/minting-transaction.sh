@@ -34,7 +34,7 @@ cardano-cli conway transaction build \
     --testnet-magic 4 \
     --tx-in $in \
     --tx-in-collateral $in \
-    --tx-out "$(cat $keypath/jack.addr) + 43 $policyid.$tokenname" \
+    --tx-out "$(cat $keypath/jack.addr) + 1034400 lovelace + 43 $policyid.$tokenname" \
     --change-address "$(cat $keypath/jack.addr)" \
     --mint "43 $policyid.$tokenname" \
     --mint-script-file $assets/freePolicy.plutus \
