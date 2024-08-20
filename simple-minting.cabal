@@ -15,7 +15,6 @@ library
   exposed-modules:  Minting
   build-depends:    base
                   , cardano-api          ^>=9.2.0.0
-                  , cardano-api:internal ^>=9.2.0.0
                   , plutus-core          ^>=1.31
                   , plutus-ledger-api    ^>=1.31
                   , plutus-tx            ^>=1.31
